@@ -88,17 +88,17 @@ int main()
     stack<Rent> rents;
 
     // Load data from files
-    cout << "Importing data... 4" << endl;
+    cout << "Importing data..." << endl;
 
     videos.importFromFile("videos.txt");
     customers = Customer::importFromFile("customers.txt");
     rents = Rent::importFromFile("rents.txt");
 
-    videos.addVideo(Video("The Matrix", "Action", "Warner Bros", 5, "matrix.jpg"));
+    // videos.addVideo(Video("The Matrix", "Action", "Warner Bros", 5, "matrix.jpg"));
 
-    customers.push(Customer("John Doe", "123 Main St"));
+    // customers.push(Customer("John Doe", "123 Main St"));
 
-    rents.push(Rent(1, 1));
+    // rents.push(Rent(1, 1));
 
     int choice;
     do
@@ -119,9 +119,21 @@ int main()
 
             Customer customer = Customer::displayAndGetCustomer(customers);
 
-            Rent rent(video->getId(), customer.getId());
+            // Check if the video is available
 
-            Rent::add(rent, &rents);
+            int availability = Rent::getVideoAvailability(*video, rents);
+
+            if (availability <= 0)
+            {
+                cout << "The video is not available." << endl;
+                break;
+            }
+            else
+            {
+                Rent rent(video->getId(), customer.getId());
+
+                Rent::add(rent, &rents);
+            }
         }
 
         break;

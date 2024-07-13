@@ -22,7 +22,7 @@ public:
     // Parameterized constructor
     Customer(string name, string address)
     {
-        this->id = nextId;
+        this->id = nextId++;
         this->name = name;
         this->address = address;
     }

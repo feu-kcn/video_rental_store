@@ -27,6 +27,7 @@ public:
         this->address = address;
     }
 
+    // Getters, since the variables are private
     int getId()
     {
         return id;
@@ -52,6 +53,8 @@ public:
     static queue<Customer> importFromFile(const string &filename);
 };
 
+// Form to add a new customer
+// Returns the newly created Customer class
 Customer Customer::createCustomer()
 {
     string name;
@@ -65,6 +68,7 @@ Customer Customer::createCustomer()
     return Customer(name, address);
 }
 
+// Display a single customer
 void Customer::displayCustomer(Customer customer)
 {
     cout << "ID: " << customer.getId() << endl;
@@ -72,6 +76,7 @@ void Customer::displayCustomer(Customer customer)
     cout << "Customer address: " << customer.getAddress() << endl;
 }
 
+// Display all customers
 void Customer::displayAllCustomers(queue<Customer> customers)
 {
     queue<Customer> temp = customers;
@@ -85,6 +90,7 @@ void Customer::displayAllCustomers(queue<Customer> customers)
     }
 }
 
+// Display all customers and return the selected customer
 Customer Customer::displayAndGetCustomer(queue<Customer> customers)
 {
     Customer customer;

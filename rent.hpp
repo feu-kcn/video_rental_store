@@ -1,3 +1,4 @@
+// Define the Rent class
 class Rent
 {
 private:
@@ -5,12 +6,14 @@ private:
     int customerId;
 
 public:
+    // Default constructor
     Rent(int videoId, int customerId)
     {
         this->videoId = videoId;
         this->customerId = customerId;
     }
 
+    // Getters
     int getVideoId()
     {
         return videoId;
@@ -22,10 +25,7 @@ public:
     }
 
     // Static methods
-    static Rent createRent();
     static void add(Rent rent, std::stack<Rent> *rents);
-    static void addRent(std::stack<Rent> *rents);
-    static void displayRent(Rent rent);
     static void returnVideo(int videoId, int customerId, stack<Rent> *rents);
     static int getVideoAvailability(Video video, stack<Rent> rents);
     static std::vector<int> listOfVideosRentedByCustomer(int customerId, std::stack<Rent> rents);
@@ -34,35 +34,9 @@ public:
     static stack<Rent> importFromFile(const string &filename);
 };
 
-Rent Rent::createRent()
-{
-    int videoId;
-    int customerId;
-
-    cout << "Enter video ID: ";
-    cin >> videoId;
-    cout << "Enter customer ID: ";
-    cin >> customerId;
-
-    return Rent(videoId, customerId);
-}
-
 void Rent::add(Rent rent, stack<Rent> *rents)
 {
     rents->push(rent);
-}
-
-void Rent::addRent(stack<Rent> *rents)
-{
-    Rent rent = Rent::createRent();
-
-    rents->push(rent);
-}
-
-void Rent::displayRent(Rent rent)
-{
-    cout << "Video ID: " << rent.getVideoId() << endl;
-    cout << "Customer ID: " << rent.getCustomerId() << endl;
 }
 
 void Rent::returnVideo(int videoId, int customerId, stack<Rent> *rents)

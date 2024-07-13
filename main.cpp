@@ -9,6 +9,7 @@
 
 using namespace std;
 
+// Shows the customer menu and returns the choice
 int customerMenu()
 {
     int choice;
@@ -30,9 +31,10 @@ int customerMenu()
     return choice;
 }
 
+// Display the main menu
 void displayMenu()
 {
-    cout << "Menu:" << endl;
+    cout << "LODS Video Rental System | Main Menu :" << endl;
     cout << "[1] New Video" << endl;
     cout << "[2] Rent a Video" << endl;
     cout << "[3] Return a Video" << endl;
@@ -43,6 +45,9 @@ void displayMenu()
     cout << "[8] Exit" << endl;
 }
 
+// Get a valid choice from the user
+// Returns the choice
+// Loops until a valid choice is entered
 int getValidChoice()
 {
     int choice;
@@ -94,12 +99,12 @@ int main()
     customers = Customer::importFromFile("customers.txt");
     rents = Rent::importFromFile("rents.txt");
 
-    // videos.addVideo(Video("The Matrix", "Action", "Warner Bros", 5, "matrix.jpg"));
-
-    // customers.push(Customer("John Doe", "123 Main St"));
-
+    /// Uncomment the following lines to add some sample data
+    // videos.addVideo(Video("Avengers", "Sci-Fi", "Marvel", 2, "marvel.jpg"));
+    // customers.push(Customer("Juan de la Cruz", "Manila PH"));
     // rents.push(Rent(1, 1));
 
+    // Main loop
     int choice;
     do
     {
@@ -140,7 +145,6 @@ int main()
         case 3:
         {
             // Return a video rent
-            // TODO: check this
             Video *video = videos.displayAndSelectVideoNoNull();
 
             Customer customer = Customer::displayAndGetCustomer(customers);
@@ -168,6 +172,7 @@ int main()
             break;
         case 6:
         {
+            // Check video availability
             Video *video = videos.displayAndSelectVideo();
 
             int availability = Rent::getVideoAvailability(*video, rents);
@@ -185,19 +190,22 @@ int main()
         }
         case 7:
         {
+            // Customer maintenance menu
             int selection = customerMenu();
             switch (selection)
             {
             case 1:
+                // Add new customer
                 customers.push(Customer::createCustomer());
                 break;
             case 2:
+                // Show customer details
                 Customer::displayCustomer(Customer::displayAndGetCustomer(customers));
                 break;
             case 3:
             {
-                Customer customer = Customer::displayAndGetCustomer(customers);
                 // List of videos rented by a customer
+                Customer customer = Customer::displayAndGetCustomer(customers);
 
                 vector<int> ids = Rent::listOfVideosRentedByCustomer(customer.getId(), rents);
 

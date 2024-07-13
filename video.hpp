@@ -27,6 +27,8 @@ public:
         movieImageFilename = "";
     }
 
+    // Constructor with ID
+    // Used only when importing from file
     Video(int id, string title, string genre, string production, int numberOfCopies, string movieImageFilename)
     {
         this->id = id;
@@ -37,7 +39,9 @@ public:
         this->movieImageFilename = movieImageFilename;
     }
 
-    // Parameterized constructor
+    // Constructor with no ID
+    // Automatically assigns the next ID
+    // This is used when creating AND adding a new video
     Video(string title, string genre, string production, int numberOfCopies, string movieImageFilename)
     {
         this->id = nextId;
@@ -138,6 +142,10 @@ public:
         }
     }
 
+    // Overloaded method to add a new video
+    // This is function without parameters
+    // It will call the createVideo() method to get the video details
+    // and then add the video to the list through addVideo function.
     void addVideo()
     {
         Video video = Video::createVideo();
@@ -145,6 +153,7 @@ public:
         addVideo(video);
     }
 
+    // Display all videos
     void displayVideos()
     {
         VideoNode *current = head;
@@ -157,6 +166,9 @@ public:
         }
     }
 
+    // This function will display all videos and then ask the user to enter the video ID
+    // The function will return the video with the entered ID
+    // If the video ID is not found, the function will return NULL
     Video *displayAndSelectVideo()
     {
         VideoNode *current = head;
@@ -175,6 +187,8 @@ public:
         return getVideo(videoId);
     }
 
+    // Same as displayAndSelectVideo,
+    // but this function will keep asking the user to enter the video ID
     Video *displayAndSelectVideoNoNull()
     {
         Video *selectedVideo = nullptr;
@@ -211,6 +225,8 @@ public:
         return selectedVideo;
     }
 
+    // Get video by ID
+    // Returns NULL if the video is not found
     Video *getVideo(int videoId)
     {
         VideoNode *current = head;
@@ -290,17 +306,13 @@ public:
             Video video = Video(id, title, genre, production, numberOfCopies, movieImageFilename);
 
             addVideo(video);
-
-            // if (id >= Video::nextId)
-            // {
-            //     Video::setNextId(id + 1);
-            // }
         }
 
         inFile.close();
     }
 };
 
+// Form to create a new video
 Video Video::createVideo()
 {
     string title;
@@ -327,11 +339,13 @@ Video Video::createVideo()
     return Video(title, genre, production, numberOfCopies, movieImageFilename);
 }
 
+// Display video details
 void Video::displayVideo(Video *video, bool displayAll)
 {
     cout << "ID: " << video->getId() << endl;
     cout << "Video title: " << video->getTitle() << endl;
 
+    // Display additional details if displayAll is true
     if (displayAll)
     {
         cout << "Video genre: " << video->getGenre() << endl;

@@ -34,11 +34,13 @@ public:
     static stack<Rent> importFromFile(const string &filename);
 };
 
+// Add the rent parameter to the stack
 void Rent::add(Rent rent, stack<Rent> *rents)
 {
     rents->push(rent);
 }
 
+// Remove the rent from the stack
 void Rent::returnVideo(int videoId, int customerId, stack<Rent> *rents)
 {
     stack<Rent> tempStack;
@@ -55,6 +57,7 @@ void Rent::returnVideo(int videoId, int customerId, stack<Rent> *rents)
     }
 }
 
+// Get the availability of a video
 int Rent::getVideoAvailability(Video video, stack<Rent> rents)
 {
     int count = 0;
@@ -74,6 +77,7 @@ int Rent::getVideoAvailability(Video video, stack<Rent> rents)
     return video.getNumberOfCopies() - count;
 }
 
+// Get the list of videos rented by a customer
 std::vector<int> Rent::listOfVideosRentedByCustomer(int customerId, std::stack<Rent> rents)
 {
     std::vector<int> videoIds;
@@ -92,6 +96,8 @@ std::vector<int> Rent::listOfVideosRentedByCustomer(int customerId, std::stack<R
 
     return videoIds;
 }
+
+// Export the rents to a file
 void Rent::exportToFile(const string &filename, stack<Rent> rents)
 {
     ofstream outFile(filename);
@@ -112,6 +118,7 @@ void Rent::exportToFile(const string &filename, stack<Rent> rents)
     outFile.close();
 }
 
+// Import the rents from a file
 stack<Rent> Rent::importFromFile(const string &filename)
 {
     ifstream inFile(filename);

@@ -74,7 +74,7 @@ int getValidChoice()
             cin.clear();
 
             // Clear the input that has error
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            // cin.ignore(numeric_limits<streamsize>::max(), '\n');
         }
     } while (!validInput);
 
